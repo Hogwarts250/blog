@@ -1,0 +1,2 @@
+Write a web app that allows me to create posts about topics. There is an option to only see posts about a certain topic.
+The post should be able to contain hyperlinks and images. The home page is a timeline of every post. 

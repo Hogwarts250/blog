@@ -1,0 +1,30 @@
+{% extends "blog_app/base.html" %} {% block header %}
+<div class="jumbotron">
+  <h1>Felix's Blog</h1>
+  <h3>
+    A place for me to organize my thoughts and share any interesting information
+    I come across.
+  </h3>
+</div>
+{% endblock header %} {% block content %}
+<ul>
+  {% for post in posts %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3>
+        {{ post.date_added|date:"M d, Y H:i" }} - {{ post.topic }}
+        {% if user.is_authenticated %}
+        <small>
+          <a href="{% url 'blog_app:edit_post' post.id %}">edit post</a>
+        </small>
+        {% endif %}
+      </h3>
+    </div>
+    <div class="panel-body">
+      {{ post.text|linebreaks }}
+    </div>
+  </div> <!-- panel -->
+  {% endfor %}
+</ul>
+
+{% endblock content %}

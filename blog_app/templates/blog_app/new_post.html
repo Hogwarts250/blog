@@ -1,0 +1,13 @@
+{% extends "blog_app/base.html" %} {% load bootstrap3 %} {% block header %}
+<h2>Write a new post about a topic</h2>
+{% endblock header %} {% block content %}
+<p>
+  <a href="{% url 'blog_app:topic' topic.id %}">Return to {{ topic }}</a>
+</p>
+<form action="{% url 'blog_app:new_post' topic.id %}" method="POST" class="form">
+  {% csrf_token %} {% bootstrap_form form %} {% button %}
+  <button name="submit">Add Post</button>
+  {% endbutton %}
+</form>
+
+{% endblock %}
