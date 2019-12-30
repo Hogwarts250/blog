@@ -28,6 +28,12 @@ def topic(request, topic_id):
     context = {"topics": topics, "topic": topic, "posts": posts}
     return render(request, "blog_app/topic.html", context)
 
+def about_me(request):
+    """The about me page for the blog"""
+    topics = Topic.objects.order_by("text")
+    context = {"topics": topics}
+    return render(request, "blog_app/about_me.html", context)
+
 @login_required()
 def new_topic(request):
     """Add a new topic."""
@@ -47,22 +53,26 @@ def new_topic(request):
     return render(request, "blog_app/new_topic.html", context)
 
 @login_required
-def new_post(request, topic_id):
+def new_post(request, topic_id=None):
     """Add a new post for a particular topic."""
     topics = Topic.objects.order_by("text")
-    topic = Topic.objects.get(id=topic_id)
+    if topic_id:
+        topic = Topic.objects.get(id=topic_id)
+    else:
+        topic = None
 
     if request.method != "POST":
         # No data submitted; create a blank form.
-        form = PostForm()
+        form = PostForm(initial={"topic": topic})
     else:
         # POST data submitted; process data.
         form = PostForm(data=request.POST)
         if form.is_valid():
-            new_post = form.save(commit=False)
-            new_post.topic = topic
-            new_post.save()
-            return HttpResponseRedirect(reverse("blog_app:topic", args=[topic_id]))
+            new_post = form.save()
+            if topic_id:
+                return HttpResponseRedirect(reverse("blog_app:topic", args=[topic_id]))
+            else:
+                return HttpResponseRedirect(reverse("blog_app:home"))
 
     context = {"topics": topics, "topic": topic, "form": form}
     return render(request, "blog_app/new_post.html", context)

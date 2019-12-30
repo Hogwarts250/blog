@@ -36,6 +36,7 @@
             {% if user.is_authenticated %}
             <li><a href="{% url 'blog_app:new_topic' %}">New Topic</a></li>
             {% endif %}
+            <li><a href="{% url 'blog_app:about_me' %}">About Me</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">

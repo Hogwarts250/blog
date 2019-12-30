@@ -11,6 +11,5 @@ class TopicForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["text"]
-        labels = {"text": ""}
-        widgets = {"text": forms.Textarea(attrs={"cols": 80})}
+        fields = ["topic", "text"]
+        labels = {"topic":"" , "text": ""}

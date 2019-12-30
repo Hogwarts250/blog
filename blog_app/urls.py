@@ -18,9 +18,15 @@ urlpatterns = [
     # Page for adding a new topic.
     path("new_topic/", views.new_topic, name="new_topic"),
 
-    # Page for adding a new post.
+    # Page for adding a new post from the home page.
+    path("new_post/", views.new_post, name="new_post"),
+
+    # Page for adding a new post from a topic page.
     path("new_post/<int:topic_id>/", views.new_post, name="new_post"),
 
     # Page for editing an post.
-    path("edit_post/<int:post_id>/", views.edit_post, name="edit_post")
+    path("edit_post/<int:post_id>/", views.edit_post, name="edit_post"),
+
+    # Page containing personal details
+    path("about_me/", views.about_me, name="about_me"),
 ]
