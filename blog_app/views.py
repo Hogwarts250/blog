@@ -82,7 +82,6 @@ def edit_post(request, post_id):
     """Edit an existing post."""
     topics = Topic.objects.order_by("text")
     post = Post.objects.get(id=post_id)
-    topic = post.topic
 
     if request.method != "POST":
         # Initial request; pre-fill form with the current post.
@@ -92,7 +91,7 @@ def edit_post(request, post_id):
         form = PostForm(instance=post, data=request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse("blog_app:topic", args=[topic.id]))
+            return HttpResponseRedirect(reverse("blog_app:home"))
 
-    context = {"topics": topics, "topic": topic, "post": post, "form": form}
+    context = {"topics": topics, "post": post, "form": form}
     return render(request, "blog_app/edit_post.html", context)
